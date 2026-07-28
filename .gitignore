@@ -1,0 +1,27 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# Composer
+vendor/
+
+# Node
+node_modules/
+
+# Flutter
+panenku_mobile/build/
+panenku_mobile/.dart_tool/
+panenku_mobile/.packages
+
+# CodeIgniter
+panenku_api/vendor/
+panenku_api/writable/cache/*
+panenku_api/writable/logs/*
+panenku_api/writable/session/*
