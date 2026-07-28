@@ -72,6 +72,6 @@ class CreateBiayaTable extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('biaya');
+        $this->forge->dropTable('biaya', true);
     }
 }

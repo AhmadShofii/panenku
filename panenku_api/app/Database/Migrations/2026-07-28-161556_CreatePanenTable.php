@@ -68,6 +68,6 @@ class CreatePanenTable extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('panen');
+        $this->forge->dropTable('panen', true);
     }
 }

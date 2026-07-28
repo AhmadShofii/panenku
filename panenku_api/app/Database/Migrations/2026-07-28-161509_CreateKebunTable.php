@@ -16,10 +16,10 @@ class CreateKebunTable extends Migration
                 'auto_increment' => true,
             ],
             'user_id' => [
-                'type'       => 'BIGINT',
-                'constraint' => 20,
-                'unsigned'   => true,
-            ],
+    'type'       => 'INT',
+    'constraint' => 11,
+    'unsigned'   => true,
+],
             'nama_kebun' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
