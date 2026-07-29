@@ -1,9 +1,32 @@
-<footer class="bg-white border-top text-center py-3">
+<footer class="footer-modern">
 
-    <small>
+    <div class="container-fluid">
 
-        © <?= date('Y') ?> PanenKu
+        <div class="footer-content">
 
-    </small>
+            <div class="footer-brand">
+                🌾 <strong>PanenKu</strong>
+            </div>
+
+            <div class="footer-text">
+
+                <small>
+                    © <?= date('Y') ?> PanenKu.
+                    Sistem Informasi Manajemen Perkebunan
+                </small>
+
+            </div>
+
+            <div class="footer-version">
+
+                <span>
+                    v1.9.0
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </footer>

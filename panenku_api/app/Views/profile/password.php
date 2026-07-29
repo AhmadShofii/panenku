@@ -2,158 +2,177 @@
 
 <?= $this->section('content') ?>
 
-
 <div class="container-fluid">
 
+    <div class="mb-4">
 
-<div class="row justify-content-center">
+        <h2 class="fw-bold mb-1">
+            Ubah Password
+        </h2>
 
+        <p class="text-muted mb-0">
+            Perbarui keamanan akun Anda.
+        </p>
 
-<div class="col-lg-6">
+    </div>
 
 
-<div class="card shadow-sm border-0">
+    <div class="row justify-content-center">
 
+        <div class="col-lg-6">
 
-<div class="card-header bg-warning">
 
-<h5 class="mb-0">
+            <div class="card border-0 shadow-sm">
 
-<i class="bi bi-key-fill"></i>
-Ubah Password
 
-</h5>
+                <div class="card-header bg-warning py-3">
 
-</div>
+                    <h5 class="mb-0 fw-bold">
 
+                        <i class="bi bi-key-fill me-2"></i>
 
+                        Ganti Password
 
-<div class="card-body">
+                    </h5>
 
+                </div>
 
-<form action="<?= site_url('profile/password/update') ?>"
-method="post">
 
 
-<?= csrf_field() ?>
+                <div class="card-body p-4">
 
 
+                    <form action="<?= site_url('profile/password/update') ?>"
+                          method="post">
 
-<div class="mb-3">
 
-<label class="form-label">
-Password Lama
-</label>
+                        <?= csrf_field() ?>
 
 
-<input
-type="password"
-name="password_lama"
-class="form-control <?= session('errors.password_lama') ? 'is-invalid':'' ?>"
-required>
 
+                        <div class="mb-4">
 
-<div class="invalid-feedback">
+                            <label class="form-label fw-semibold">
 
-<?= session('errors.password_lama') ?>
+                                Password Lama
 
-</div>
+                            </label>
 
 
-</div>
+                            <input type="password"
+                                   name="password_lama"
+                                   class="form-control <?= session('errors.password_lama') ? 'is-invalid':'' ?>"
+                                   required>
 
 
+                            <div class="invalid-feedback">
 
+                                <?= session('errors.password_lama') ?>
 
-<div class="mb-3">
+                            </div>
 
-<label class="form-label">
-Password Baru
-</label>
 
+                        </div>
 
-<input
-type="password"
-name="password_baru"
-class="form-control <?= session('errors.password_baru') ? 'is-invalid':'' ?>"
-required>
 
 
-<div class="invalid-feedback">
 
-<?= session('errors.password_baru') ?>
+                        <div class="mb-4">
 
-</div>
+                            <label class="form-label fw-semibold">
 
+                                Password Baru
 
-</div>
+                            </label>
 
 
+                            <input type="password"
+                                   name="password_baru"
+                                   class="form-control <?= session('errors.password_baru') ? 'is-invalid':'' ?>"
+                                   required>
 
 
-<div class="mb-3">
+                            <div class="invalid-feedback">
 
-<label class="form-label">
-Konfirmasi Password Baru
-</label>
+                                <?= session('errors.password_baru') ?>
 
+                            </div>
 
-<input
-type="password"
-name="konfirmasi_password"
-class="form-control <?= session('errors.konfirmasi_password') ? 'is-invalid':'' ?>"
-required>
 
+                        </div>
 
-<div class="invalid-feedback">
 
-<?= session('errors.konfirmasi_password') ?>
 
-</div>
 
+                        <div class="mb-4">
 
-</div>
+                            <label class="form-label fw-semibold">
 
+                                Konfirmasi Password Baru
 
+                            </label>
 
-<div class="d-flex justify-content-between">
 
+                            <input type="password"
+                                   name="konfirmasi_password"
+                                   class="form-control <?= session('errors.konfirmasi_password') ? 'is-invalid':'' ?>"
+                                   required>
 
-<a href="<?= site_url('profile') ?>"
-class="btn btn-secondary">
 
-Kembali
+                            <div class="invalid-feedback">
 
-</a>
+                                <?= session('errors.konfirmasi_password') ?>
 
+                            </div>
 
 
-<button class="btn btn-warning">
+                        </div>
 
-<i class="bi bi-check-circle"></i>
 
-Simpan Password
 
-</button>
 
+                        <div class="d-flex justify-content-between">
 
-</div>
 
+                            <a href="<?= site_url('profile') ?>"
+                               class="btn btn-secondary">
 
+                                <i class="bi bi-arrow-left me-2"></i>
 
-</form>
+                                Kembali
 
+                            </a>
 
-</div>
 
 
-</div>
 
+                            <button type="submit"
+                                    class="btn btn-warning">
 
-</div>
+                                <i class="bi bi-check-circle me-2"></i>
 
+                                Simpan Password
 
-</div>
+                            </button>
+
+
+                        </div>
+
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>

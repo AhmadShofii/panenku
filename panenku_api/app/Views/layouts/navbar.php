@@ -1,42 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-
+<nav class="navbar navbar-expand-lg navbar-dark navbar-modern shadow-sm">
     <div class="container-fluid">
 
-        <!-- Tombol Sidebar Mobile -->
-        <button class="btn btn-success d-lg-none me-2"
+        <button 
+            class="btn btn-menu d-lg-none me-2"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#sidebarMenu">
-
-            <i class="bi bi-list fs-4"></i>
-
+            <i class="bi bi-list fs-3"></i>
         </button>
 
-        <a class="navbar-brand fw-bold" href="<?= site_url('dashboard') ?>">
-            🌾 PanenKu
+        <a class="navbar-brand fw-bold brand-panenku"
+           href="<?= site_url('dashboard') ?>">
+
+            <span class="brand-icon">🌾</span>
+            <span>PanenKu</span>
+
         </a>
 
-        <div class="ms-auto d-flex align-items-center">
+        <div class="ms-auto d-flex align-items-center gap-3">
 
-            <span class="text-white me-3 d-none d-md-inline">
+            <div class="user-profile d-none d-md-flex align-items-center">
+                <i class="bi bi-person-circle me-2"></i>
 
-                <i class="bi bi-person-circle me-1"></i>
-
-                <?= esc(auth()->user()->username ?? 'User') ?>
-
-            </span>
+                <span>
+                    <?= esc(auth()->user()->username ?? 'User') ?>
+                </span>
+            </div>
 
             <a href="<?= url_to('logout') ?>"
-                class="btn btn-light btn-sm">
+               class="btn btn-logout">
 
                 <i class="bi bi-box-arrow-right me-1"></i>
 
-                Logout
+                <span class="d-none d-sm-inline">
+                    Logout
+                </span>
 
             </a>
 
         </div>
 
     </div>
-
 </nav>
