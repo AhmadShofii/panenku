@@ -63,6 +63,13 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
     // (Opsional nanti jika membuat Export Excel)
     // $routes->get('laporan/excel', 'Laporan::excel');
 
+    // ==========================
+// Profile
+// ==========================
+$routes->get('profile', 'Profile::index');
+$routes->get('profile/edit', 'Profile::edit');
+$routes->post('profile/update', 'Profile::update');
+
 });
 
 // Shield Authentication
