@@ -36,6 +36,8 @@ class Laporan extends BaseController
             ->findAll();
 
         $data['title'] = 'Laporan';
+        $data['mulai'] = $mulai;
+        $data['selesai'] = $selesai;
 
         return view('laporan/index', $data);
     }
@@ -65,9 +67,7 @@ class Laporan extends BaseController
         $html = view('laporan/pdf', $data);
 
         $dompdf->loadHtml($html);
-
         $dompdf->setPaper('A4', 'portrait');
-
         $dompdf->render();
 
         return $this->response

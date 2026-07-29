@@ -19,23 +19,19 @@ class Panen extends BaseController
 
     public function index()
     {
-        $data = [
-            'title'  => 'Data Panen',
-            'panen'  => $this->panenService->getByUser(auth()->id()),
-        ];
-
-        return view('panen/index', $data);
+        return view('panen/index', [
+            'title' => 'Data Panen',
+            'panen' => $this->panenService->getByUser(auth()->id()),
+        ]);
     }
 
     public function create()
     {
-        $data = [
-            'title'   => 'Tambah Panen',
-            'kebun'   => $this->kebunService->getByUser(auth()->id()),
+        return view('panen/create', [
+            'title'      => 'Tambah Panen',
+            'kebun'      => $this->kebunService->getByUser(auth()->id()),
             'validation' => \Config\Services::validation(),
-        ];
-
-        return view('panen/create', $data);
+        ]);
     }
 
     public function store()
@@ -47,15 +43,17 @@ class Panen extends BaseController
             'harga_per_kg'  => 'required|decimal',
         ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()
+        if (! $this->validate($rules)) {
+            return redirect()
+                ->back()
                 ->withInput()
-                ->with('errors', $this->validator->getErrors());
+                ->with('errors', $this->validator->getErrors())
+                ->with('error', 'Data panen gagal disimpan. Periksa kembali data yang diinput.');
         }
 
-        $kebun = $this->kebunService->find((int)$this->request->getPost('kebun_id'));
+        $kebun = $this->kebunService->find((int) $this->request->getPost('kebun_id'));
 
-        if (!$kebun || $kebun['user_id'] != auth()->id()) {
+        if (! $kebun || $kebun['user_id'] != auth()->id()) {
             throw PageNotFoundException::forPageNotFound();
         }
 
@@ -67,33 +65,32 @@ class Panen extends BaseController
             'catatan'       => $this->request->getPost('catatan'),
         ]);
 
-        return redirect()->to('/panen')
+        return redirect()
+            ->to(site_url('panen'))
             ->with('success', 'Data panen berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        $panen = $this->panenService->find((int)$id);
+        $panen = $this->panenService->find((int) $id);
 
-        if (!$panen || $panen['user_id'] != auth()->id()) {
+        if (! $panen || $panen['user_id'] != auth()->id()) {
             throw PageNotFoundException::forPageNotFound();
         }
 
-        $data = [
+        return view('panen/edit', [
             'title'      => 'Edit Panen',
             'panen'      => $panen,
             'kebun'      => $this->kebunService->getByUser(auth()->id()),
             'validation' => \Config\Services::validation(),
-        ];
-
-        return view('panen/edit', $data);
+        ]);
     }
 
     public function update($id)
     {
-        $panen = $this->panenService->find((int)$id);
+        $panen = $this->panenService->find((int) $id);
 
-        if (!$panen || $panen['user_id'] != auth()->id()) {
+        if (! $panen || $panen['user_id'] != auth()->id()) {
             throw PageNotFoundException::forPageNotFound();
         }
 
@@ -104,13 +101,15 @@ class Panen extends BaseController
             'harga_per_kg'  => 'required|decimal',
         ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()
+        if (! $this->validate($rules)) {
+            return redirect()
+                ->back()
                 ->withInput()
-                ->with('errors', $this->validator->getErrors());
+                ->with('errors', $this->validator->getErrors())
+                ->with('error', 'Data panen gagal diperbarui. Periksa kembali data yang diinput.');
         }
 
-        $this->panenService->update((int)$id, [
+        $this->panenService->update((int) $id, [
             'kebun_id'      => $this->request->getPost('kebun_id'),
             'tanggal_panen' => $this->request->getPost('tanggal_panen'),
             'hasil_kg'      => $this->request->getPost('hasil_kg'),
@@ -118,21 +117,23 @@ class Panen extends BaseController
             'catatan'       => $this->request->getPost('catatan'),
         ]);
 
-        return redirect()->to('/panen')
+        return redirect()
+            ->to(site_url('panen'))
             ->with('success', 'Data panen berhasil diperbarui.');
     }
 
     public function delete($id)
     {
-        $panen = $this->panenService->find((int)$id);
+        $panen = $this->panenService->find((int) $id);
 
-        if (!$panen || $panen['user_id'] != auth()->id()) {
+        if (! $panen || $panen['user_id'] != auth()->id()) {
             throw PageNotFoundException::forPageNotFound();
         }
 
-        $this->panenService->delete((int)$id);
+        $this->panenService->delete((int) $id);
 
-        return redirect()->to('/panen')
+        return redirect()
+            ->to(site_url('panen'))
             ->with('success', 'Data panen berhasil dihapus.');
     }
 }

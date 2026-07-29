@@ -75,14 +75,32 @@
 
                 <div class="mb-3">
 
-                    <label class="form-label">Nominal</label>
+                    <label class="form-label">Nominal (Rp)</label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">Rp</span>
+
+                        <input
+                            type="text"
+                            id="nominal_display"
+                            class="form-control"
+                            value="<?= number_format($biaya['nominal'], 0, ',', '.') ?>"
+                            autocomplete="off"
+                            required>
+
+                    </div>
 
                     <input
-                        type="number"
+                        type="hidden"
                         name="nominal"
-                        class="form-control"
-                        value="<?= $biaya['nominal'] ?>"
-                        required>
+                        id="nominal"
+                        value="<?= $biaya['nominal'] ?>">
+
+                    <small class="text-muted">
+                        Contoh: ketik <strong>350000</strong>, otomatis menjadi
+                        <strong>350.000</strong>.
+                    </small>
 
                 </div>
 
@@ -123,5 +141,24 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const display = document.getElementById('nominal_display');
+    const hidden = document.getElementById('nominal');
+
+    display.addEventListener('input', function () {
+
+        let angka = this.value.replace(/\D/g, '');
+
+        hidden.value = angka;
+
+        this.value = angka.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    });
+
+});
+</script>
 
 <?= $this->endSection() ?>

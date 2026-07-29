@@ -56,4 +56,56 @@ class DashboardService
             'labaBersih'      => $totalPendapatan - $totalBiaya,
         ];
     }
+
+    public function getMonthlyChart(int $userId): array
+{
+    $labels = [
+        'Jan','Feb','Mar','Apr','Mei','Jun',
+        'Jul','Agu','Sep','Okt','Nov','Des'
+    ];
+
+    $pendapatan = array_fill(0, 12, 0);
+    $biaya      = array_fill(0, 12, 0);
+
+    // Pendapatan per bulan
+    $panen = $this->panenModel
+        ->select("
+            MONTH(tanggal_panen) AS bulan,
+            SUM(total_harga) AS total
+        ")
+        ->join('kebun', 'kebun.id = panen.kebun_id')
+        ->where('kebun.user_id', $userId)
+        ->groupBy('MONTH(tanggal_panen)')
+        ->findAll();
+
+    foreach ($panen as $row) {
+
+        $pendapatan[$row['bulan'] - 1] = (float) $row['total'];
+
+    }
+
+    // Biaya per bulan
+    $pengeluaran = $this->biayaModel
+        ->select("
+            MONTH(tanggal) AS bulan,
+            SUM(nominal) AS total
+        ")
+        ->join('kebun', 'kebun.id = biaya.kebun_id')
+        ->where('kebun.user_id', $userId)
+        ->groupBy('MONTH(tanggal)')
+        ->findAll();
+
+    foreach ($pengeluaran as $row) {
+
+        $biaya[$row['bulan'] - 1] = (float) $row['total'];
+
+    }
+
+    return [
+        'labels'      => $labels,
+        'pendapatan'  => $pendapatan,
+        'biaya'       => $biaya,
+    ];
+}
+
 }

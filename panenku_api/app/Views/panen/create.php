@@ -22,14 +22,16 @@
                 <div class="mb-3">
                     <label class="form-label">Kebun</label>
 
-                    <select name="kebun_id"
+                    <select
+                        name="kebun_id"
                         class="form-select <?= session('errors.kebun_id') ? 'is-invalid' : '' ?>">
 
                         <option value="">-- Pilih Kebun --</option>
 
                         <?php foreach ($kebun as $item): ?>
 
-                            <option value="<?= $item['id'] ?>"
+                            <option
+                                value="<?= $item['id'] ?>"
                                 <?= old('kebun_id') == $item['id'] ? 'selected' : '' ?>>
 
                                 <?= esc($item['nama_kebun']) ?>
@@ -92,13 +94,24 @@
 
                             <label class="form-label">Harga per Kg</label>
 
+                            <div class="input-group">
+
+                                <span class="input-group-text">Rp</span>
+
+                                <input
+                                    type="text"
+                                    id="harga_per_kg_display"
+                                    value="<?= old('harga_per_kg') ? number_format(old('harga_per_kg'), 0, ',', '.') : '' ?>"
+                                    class="form-control <?= session('errors.harga_per_kg') ? 'is-invalid' : '' ?>"
+                                    autocomplete="off">
+
+                            </div>
+
                             <input
-                                type="number"
-                                step="0.01"
+                                type="hidden"
                                 id="harga_per_kg"
                                 name="harga_per_kg"
-                                value="<?= old('harga_per_kg') ?>"
-                                class="form-control <?= session('errors.harga_per_kg') ? 'is-invalid' : '' ?>">
+                                value="<?= old('harga_per_kg') ?>">
 
                             <div class="invalid-feedback">
                                 <?= session('errors.harga_per_kg') ?>
@@ -143,7 +156,7 @@
 
                     </a>
 
-                    <button class="btn btn-success">
+                    <button type="submit" class="btn btn-success">
 
                         <i class="bi bi-check-circle"></i>
 
@@ -162,29 +175,48 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
 
-function hitungTotal() {
+    const hasilInput = document.getElementById('hasil_kg');
+    const hargaDisplay = document.getElementById('harga_per_kg_display');
+    const hargaHidden = document.getElementById('harga_per_kg');
+    const totalInput = document.getElementById('total_harga');
 
-    let hasil = parseFloat(document.getElementById('hasil_kg').value) || 0;
+    function formatRupiah(angka) {
+        return angka.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 
-    let harga = parseFloat(document.getElementById('harga_per_kg').value) || 0;
+    function hitungTotal() {
 
-    let total = hasil * harga;
+        const hasil = parseFloat(hasilInput.value) || 0;
+        const harga = parseFloat(hargaHidden.value) || 0;
 
-    document.getElementById('total_harga').value =
-        'Rp ' + total.toLocaleString('id-ID', {
+        const total = hasil * harga;
+
+        totalInput.value = 'Rp ' + total.toLocaleString('id-ID', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
 
-}
+    }
 
-document.getElementById('hasil_kg').addEventListener('input', hitungTotal);
+    hargaDisplay.addEventListener('input', function () {
 
-document.getElementById('harga_per_kg').addEventListener('input', hitungTotal);
+        let angka = this.value.replace(/\D/g, '');
 
-window.onload = hitungTotal;
+        hargaHidden.value = angka;
 
+        this.value = formatRupiah(angka);
+
+        hitungTotal();
+
+    });
+
+    hasilInput.addEventListener('input', hitungTotal);
+
+    hitungTotal();
+
+});
 </script>
 
 <?= $this->endSection() ?>

@@ -21,16 +21,6 @@
                 Export PDF
 
             </a>
-
-            <a href="<?= site_url('laporan/excel?' . http_build_query(service('request')->getGet())) ?>"
-                class="btn btn-success">
-
-                <i class="bi bi-file-earmark-excel"></i>
-
-                Export Excel
-
-            </a>
-
         </div>
 
     </div>

@@ -17,15 +17,15 @@ class Kebun extends BaseController
     public function index()
     {
         return view('kebun/index', [
-            'title' => 'Data Kebun',
-            'kebun' => $this->kebunService->getByUser(auth()->id()),
+            'title'  => 'Data Kebun',
+            'kebun'  => $this->kebunService->getByUser(auth()->id()),
         ]);
     }
 
     public function create()
     {
         return view('kebun/create', [
-            'title' => 'Tambah Kebun',
+            'title'      => 'Tambah Kebun',
             'validation' => service('validation'),
         ]);
     }
@@ -34,19 +34,22 @@ class Kebun extends BaseController
     {
         $rules = [
             'nama_kebun' => 'required|max_length[100]',
-            'luas' => 'permit_empty|decimal',
+            'luas'        => 'permit_empty|decimal',
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->back()->withInput();
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Data kebun gagal disimpan. Periksa kembali data yang diinput.');
         }
 
         $data = [
-            'user_id' => auth()->id(),
-            'nama_kebun' => $this->request->getPost('nama_kebun'),
-            'lokasi' => $this->request->getPost('lokasi'),
-            'luas' => $this->request->getPost('luas'),
-            'jenis_tanaman' => $this->request->getPost('jenis_tanaman'),
+            'user_id'         => auth()->id(),
+            'nama_kebun'      => $this->request->getPost('nama_kebun'),
+            'lokasi'          => $this->request->getPost('lokasi'),
+            'luas'            => $this->request->getPost('luas'),
+            'jenis_tanaman'   => $this->request->getPost('jenis_tanaman'),
         ];
 
         $this->kebunService->create($data);
@@ -71,8 +74,8 @@ class Kebun extends BaseController
         }
 
         return view('kebun/edit', [
-            'title' => 'Edit Kebun',
-            'kebun' => $kebun,
+            'title'      => 'Edit Kebun',
+            'kebun'      => $kebun,
             'validation' => service('validation'),
         ]);
     }
@@ -93,17 +96,20 @@ class Kebun extends BaseController
 
         $rules = [
             'nama_kebun' => 'required|max_length[100]',
-            'luas' => 'permit_empty|decimal',
+            'luas'        => 'permit_empty|decimal',
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->back()->withInput();
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Data kebun gagal diperbarui. Periksa kembali data yang diinput.');
         }
 
         $data = [
-            'nama_kebun' => $this->request->getPost('nama_kebun'),
-            'lokasi' => $this->request->getPost('lokasi'),
-            'luas' => $this->request->getPost('luas'),
+            'nama_kebun'    => $this->request->getPost('nama_kebun'),
+            'lokasi'        => $this->request->getPost('lokasi'),
+            'luas'          => $this->request->getPost('luas'),
             'jenis_tanaman' => $this->request->getPost('jenis_tanaman'),
         ];
 
