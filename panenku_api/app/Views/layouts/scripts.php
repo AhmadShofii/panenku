@@ -1,9 +1,1 @@
-<?= $this->extend('layouts/template') ?>
-
-<?= $this->section('content') ?>
-
-<h1>Dashboard</h1>
-
-<p>Selamat datang di PanenKu.</p>
-
-<?= $this->endSection() ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

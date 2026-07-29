@@ -1,9 +1,9 @@
-<hr>
-
-<footer>
+<footer class="bg-white border-top text-center py-3">
 
     <small>
-        &copy; <?= date('Y') ?> PanenKu
+
+        © <?= date('Y') ?> PanenKu
+
     </small>
 
 </footer>

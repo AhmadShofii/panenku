@@ -3,20 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><?= esc($title ?? 'PanenKu') ?></title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
 </head>
 
-<body>
+<body class="bg-light">
 
     <?= $this->include('layouts/navbar') ?>
 
-    <?= $this->include('layouts/sidebar') ?>
+    <div class="container-fluid">
 
-    <main>
+        <div class="row">
 
-        <?= $this->renderSection('content') ?>
+            <?= $this->include('layouts/sidebar') ?>
 
-    </main>
+            <main class="col-md-10 py-4">
+
+                <?= $this->renderSection('content') ?>
+
+            </main>
+
+        </div>
+
+    </div>
 
     <?= $this->include('layouts/footer') ?>
 
