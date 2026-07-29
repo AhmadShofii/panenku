@@ -27,12 +27,12 @@
 
         </a>
 
-        <a href="<?= site_url('auth/forgot') ?>"
-    class="btn btn-outline-warning mt-2">
+        <a href="<?= site_url('profile/password') ?>"
+class="btn btn-outline-warning">
 
-    <i class="bi bi-key-fill me-2"></i>
+<i class="bi bi-key-fill me-2"></i>
 
-    Ganti Password
+Ubah Password
 
 </a>
 
