@@ -4,27 +4,46 @@
 
 <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3><?= esc($title) ?></h3>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+        <div>
+            <h3 class="fw-bold mb-1"><?= esc($title) ?></h3>
+            <p class="text-muted mb-0">
+                Kelola data kebun yang Anda miliki.
+            </p>
+        </div>
 
         <a href="<?= site_url('kebun/create') ?>" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i>
+            <i class="bi bi-plus-circle me-1"></i>
             Tambah Kebun
         </a>
+
     </div>
 
-    <div class="card shadow-sm">
+    <div class="card border-0 shadow-sm">
+
         <div class="card-body">
 
             <?php if (empty($kebun)) : ?>
 
                 <div class="text-center py-5">
 
-                    <i class="bi bi-tree display-3 text-success"></i>
+                    <div class="mb-4">
+                        <i class="bi bi-tree-fill display-1 text-success opacity-75"></i>
+                    </div>
 
-                    <h5 class="mt-3">Belum ada data kebun.</h5>
+                    <h3 class="fw-bold">
+                        Belum Ada Data Kebun
+                    </h3>
 
-                    <a href="<?= site_url('kebun/create') ?>" class="btn btn-success mt-3">
+                    <p class="text-muted mx-auto mb-4" style="max-width:500px;">
+                        Tambahkan kebun pertama Anda untuk mulai mencatat
+                        hasil panen, biaya operasional, serta melihat laporan
+                        dan statistik kebun.
+                    </p>
+
+                    <a href="<?= site_url('kebun/create') ?>" class="btn btn-success btn-lg px-4">
+                        <i class="bi bi-plus-circle me-2"></i>
                         Tambah Kebun
                     </a>
 
@@ -34,17 +53,20 @@
 
                 <div class="table-responsive">
 
-                    <table id="tableKebun" class="table table-bordered table-hover align-middle">
+                    <table id="tableKebun"
+                        class="table table-bordered table-hover table-striped align-middle">
 
                         <thead class="table-success">
+
                             <tr>
-                                <th>No</th>
+                                <th width="60">No</th>
                                 <th>Nama Kebun</th>
                                 <th>Lokasi</th>
                                 <th>Luas</th>
                                 <th>Jenis Tanaman</th>
-                                <th width="150">Aksi</th>
+                                <th width="150" class="text-center">Aksi</th>
                             </tr>
+
                         </thead>
 
                         <tbody>
@@ -57,25 +79,35 @@
 
                                     <td><?= $no++ ?></td>
 
-                                    <td><?= esc($item['nama_kebun']) ?></td>
-
-                                    <td><?= esc($item['lokasi']) ?></td>
-
-                                    <td><?= number_format((float) $item['luas'], 2) ?> Ha</td>
-
-                                    <td><?= esc($item['jenis_tanaman']) ?></td>
+                                    <td class="fw-semibold">
+                                        <?= esc($item['nama_kebun']) ?>
+                                    </td>
 
                                     <td>
+                                        <?= esc($item['lokasi']) ?>
+                                    </td>
+
+                                    <td>
+                                        <?= number_format((float)$item['luas'], 2, ',', '.') ?> Ha
+                                    </td>
+
+                                    <td>
+                                        <?= esc($item['jenis_tanaman']) ?>
+                                    </td>
+
+                                    <td class="text-center">
 
                                         <a href="<?= site_url('kebun/edit/' . $item['id']) ?>"
-                                            class="btn btn-warning btn-sm">
+                                            class="btn btn-warning btn-sm"
+                                            title="Edit">
 
                                             <i class="bi bi-pencil-square"></i>
 
                                         </a>
 
                                         <a href="<?= site_url('kebun/delete/' . $item['id']) ?>"
-                                            class="btn btn-danger btn-sm btn-delete">
+                                            class="btn btn-danger btn-sm btn-delete"
+                                            title="Hapus">
 
                                             <i class="bi bi-trash"></i>
 
@@ -85,7 +117,7 @@
 
                                 </tr>
 
-                            <?php endforeach ?>
+                            <?php endforeach; ?>
 
                         </tbody>
 
@@ -93,15 +125,16 @@
 
                 </div>
 
-            <?php endif ?>
+            <?php endif; ?>
 
         </div>
+
     </div>
 
 </div>
 
 <script>
-$(document).ready(function() {
+$(function () {
 
     if (!$.fn.DataTable.isDataTable('#tableKebun')) {
 
@@ -119,6 +152,8 @@ $(document).ready(function() {
 
                 infoEmpty: "Belum ada data",
 
+                infoFiltered: "(difilter dari _MAX_ data)",
+
                 paginate: {
 
                     previous: "Sebelumnya",
@@ -133,7 +168,7 @@ $(document).ready(function() {
 
     }
 
-    $('.btn-delete').click(function(e) {
+    $('.btn-delete').click(function (e) {
 
         e.preventDefault();
 
@@ -171,41 +206,5 @@ $(document).ready(function() {
 
 });
 </script>
-
-<?php if (session()->getFlashdata('success')) : ?>
-
-<script>
-Swal.fire({
-
-    icon: 'success',
-
-    title: 'Berhasil',
-
-    text: '<?= session()->getFlashdata('success') ?>',
-
-    timer: 2000,
-
-    showConfirmButton: false
-
-});
-</script>
-
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('error')) : ?>
-
-<script>
-Swal.fire({
-
-    icon: 'error',
-
-    title: 'Gagal',
-
-    text: '<?= session()->getFlashdata('error') ?>'
-
-});
-</script>
-
-<?php endif; ?>
 
 <?= $this->endSection() ?>

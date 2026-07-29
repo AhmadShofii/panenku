@@ -64,14 +64,29 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Nominal</label>
+                    <label class="form-label">Nominal (Rp)</label>
+
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+
+                        <input
+                            type="text"
+                            id="nominal_display"
+                            class="form-control"
+                            placeholder="Contoh: 350.000"
+                            autocomplete="off"
+                            required>
+                    </div>
 
                     <input
-                        type="number"
+                        type="hidden"
                         name="nominal"
-                        class="form-control"
-                        placeholder="Masukkan nominal"
-                        required>
+                        id="nominal">
+
+                    <small class="text-muted">
+                        Contoh: ketik <strong>350000</strong>, otomatis menjadi
+                        <strong>350.000</strong>.
+                    </small>
                 </div>
 
                 <div class="mb-3">
@@ -110,5 +125,27 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const display = document.getElementById('nominal_display');
+    const hidden = document.getElementById('nominal');
+
+    display.addEventListener('input', function () {
+
+        // Ambil hanya angka
+        let angka = this.value.replace(/\D/g, '');
+
+        // Simpan nilai asli ke input hidden
+        hidden.value = angka;
+
+        // Tampilkan format ribuan
+        this.value = angka.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    });
+
+});
+</script>
 
 <?= $this->endSection() ?>

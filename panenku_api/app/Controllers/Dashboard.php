@@ -19,6 +19,7 @@ class Dashboard extends BaseController
             'title' => 'Dashboard',
             'user'  => auth()->user(),
             'stats' => $this->dashboardService->getStatistics(auth()->id()),
+            'chart' => $this->dashboardService->getMonthlyChart(auth()->id()),
         ]);
     }
 }

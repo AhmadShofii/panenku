@@ -58,6 +58,7 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
     // ==========================
     $routes->get('laporan', 'Laporan::index');
     $routes->get('laporan/pdf', 'Laporan::pdf');
+    $routes->get('laporan/excel', 'Laporan::excel');
 
     // (Opsional nanti jika membuat Export Excel)
     // $routes->get('laporan/excel', 'Laporan::excel');
