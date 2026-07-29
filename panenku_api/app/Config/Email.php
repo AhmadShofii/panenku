@@ -6,121 +6,151 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
+    /**
+     * Email pengirim
+     */
     public string $fromEmail  = 'ahmadshofii023@gmail.com';
-    public string $fromName   = 'panenku';
-    public string $recipients = '';
+
+    public string $fromName   = 'PanenKu';
+
 
     /**
-     * The "user agent"
+     * Recipient default
+     */
+    public string $recipients = '';
+
+
+    /**
+     * User Agent
      */
     public string $userAgent = 'CodeIgniter';
 
-    /**
-     * The mail sending protocol: mail, sendmail, smtp
-     */
-    public string $protocol = 'mail';
+
 
     /**
-     * The server path to Sendmail.
+     * Mail Protocol
+     * mail | sendmail | smtp
      */
-    public string $mailPath = '/usr/sbin/sendmail';
+    public string $protocol = 'smtp';
+
+
 
     /**
-     * SMTP Server Hostname
+     * SMTP Configuration
      */
-    public string $SMTPHost = '';
+
+    public string $SMTPHost = 'smtp.gmail.com';
+
 
     /**
-     * Which SMTP authentication method to use: login, plain
+     * Authentication Method
      */
     public string $SMTPAuthMethod = 'login';
 
-    /**
-     * SMTP Username
-     */
-    public string $SMTPUser = '';
+
 
     /**
-     * SMTP Password
+     * Gmail Account
      */
-    public string $SMTPPass = '';
+    public string $SMTPUser = 'ahmadshofii023@gmail.com';
+
+
 
     /**
-     * SMTP Port
+     * Gmail App Password
+     *
+     * GANTI DENGAN APP PASSWORD GOOGLE
      */
-    public int $SMTPPort = 25;
+    public string $SMTPPass = 'ytjuxlolbwgabqpe';
+
+
 
     /**
-     * SMTP Timeout (in seconds)
+     * SMTP Port Gmail TLS
      */
-    public int $SMTPTimeout = 5;
+    public int $SMTPPort = 587;
+
+
 
     /**
-     * Enable persistent SMTP connections
+     * SMTP Timeout
+     */
+    public int $SMTPTimeout = 10;
+
+
+
+    /**
+     * Persistent connection
      */
     public bool $SMTPKeepAlive = false;
 
+
+
     /**
-     * SMTP Encryption.
-     *
-     * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
-     *             to the server. 'ssl' means implicit SSL. Connection on port
-     *             465 should set this to ''.
+     * Encryption
      */
     public string $SMTPCrypto = 'tls';
 
+
+
     /**
-     * Enable word-wrap
+     * Email Format
      */
     public bool $wordWrap = true;
 
-    /**
-     * Character count to wrap at
-     */
+
     public int $wrapChars = 76;
 
-    /**
-     * Type of mail, either 'text' or 'html'
-     */
-    public string $mailType = 'text';
+
 
     /**
-     * Character set (utf-8, iso-8859-1, etc.)
+     * Email Type
+     */
+    public string $mailType = 'html';
+
+
+
+    /**
+     * Charset
      */
     public string $charset = 'UTF-8';
 
-    /**
-     * Whether to validate the email address
-     */
-    public bool $validate = false;
+
 
     /**
-     * Email Priority. 1 = highest. 5 = lowest. 3 = normal
+     * Validate email
+     */
+    public bool $validate = true;
+
+
+
+    /**
+     * Priority
      */
     public int $priority = 3;
 
+
+
     /**
-     * Newline character. (Use “\r\n” to comply with RFC 822)
+     * Line Break
      */
     public string $CRLF = "\r\n";
 
-    /**
-     * Newline character. (Use “\r\n” to comply with RFC 822)
-     */
     public string $newline = "\r\n";
 
+
+
     /**
-     * Enable BCC Batch Mode.
+     * BCC
      */
     public bool $BCCBatchMode = false;
 
-    /**
-     * Number of emails in each BCC batch
-     */
     public int $BCCBatchSize = 200;
 
+
+
     /**
-     * Enable notify message from server
+     * DSN
      */
     public bool $DSN = false;
 }
