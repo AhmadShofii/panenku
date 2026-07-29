@@ -69,7 +69,8 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
 $routes->get('profile', 'Profile::index');
 $routes->get('profile/edit', 'Profile::edit');
 $routes->post('profile/update', 'Profile::update');
-
+$routes->get('profile/password', 'Profile::password');
+$routes->post('profile/password/update', 'Profile::updatePassword');
 });
 
 // Shield Authentication
