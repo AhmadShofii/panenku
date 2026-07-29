@@ -10,15 +10,10 @@ class CreateKategoriBiayaTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'BIGINT',
-                'constraint'     => 20,
+                'type'           => 'INT',
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
-            ],
-            'user_id' => [
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => true,
             ],
             'nama_kategori' => [
                 'type'       => 'VARCHAR',
@@ -35,21 +30,12 @@ class CreateKategoriBiayaTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addKey('user_id');
-
-        $this->forge->addForeignKey(
-            'user_id',
-            'users',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
 
         $this->forge->createTable('kategori_biaya');
     }
 
     public function down()
     {
-        $this->forge->dropTable('kategori_biaya');
+        $this->forge->dropTable('kategori_biaya', true);
     }
 }

@@ -10,19 +10,19 @@ class CreateBiayaTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'BIGINT',
-                'constraint'     => 20,
+                'type'           => 'INT',
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'kebun_id' => [
-                'type'       => 'BIGINT',
-                'constraint' => 20,
+                'type'       => 'INT',
+                'constraint' => 11,
                 'unsigned'   => true,
             ],
             'kategori_id' => [
-                'type'       => 'BIGINT',
-                'constraint' => 20,
+                'type'       => 'INT',
+                'constraint' => 11,
                 'unsigned'   => true,
             ],
             'tanggal' => [

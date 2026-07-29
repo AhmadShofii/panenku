@@ -10,8 +10,8 @@ class CreatePanenTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'BIGINT',
-                'constraint'     => 20,
+                'type'           => 'INT',
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
