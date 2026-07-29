@@ -4,118 +4,144 @@
 
 <div class="container-fluid">
 
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
 
         <div>
-            <h3 class="fw-bold mb-1"><?= esc($title) ?></h3>
+            <h2 class="fw-bold mb-1">
+                <?= esc($title) ?>
+            </h2>
+
             <p class="text-muted mb-0">
                 Kelola data kebun yang Anda miliki.
             </p>
         </div>
 
-        <a href="<?= site_url('kebun/create') ?>" class="btn btn-success">
-            <i class="bi bi-plus-circle me-1"></i>
+        <a href="<?= site_url('kebun/create') ?>"
+           class="btn btn-success px-4">
+
+            <i class="bi bi-plus-circle me-2"></i>
             Tambah Kebun
+
         </a>
 
     </div>
 
-    <div class="card border-0 shadow-sm">
 
-        <div class="card-body">
+    <?php if (empty($kebun)): ?>
 
-            <?php if (empty($kebun)) : ?>
+        <div class="card shadow-sm border-0">
 
-                <div class="text-center py-5">
+            <div class="card-body text-center py-5">
 
-                    <div class="mb-4">
-                        <i class="bi bi-tree-fill display-1 text-success opacity-75"></i>
-                    </div>
+                <i class="bi bi-tree-fill display-1 text-success"></i>
 
-                    <h3 class="fw-bold">
-                        Belum Ada Data Kebun
-                    </h3>
+                <h3 class="fw-bold mt-3">
+                    Belum Ada Data Kebun
+                </h3>
 
-                    <p class="text-muted mx-auto mb-4" style="max-width:500px;">
-                        Tambahkan kebun pertama Anda untuk mulai mencatat
-                        hasil panen, biaya operasional, serta melihat laporan
-                        dan statistik kebun.
-                    </p>
+                <p class="text-muted mx-auto" style="max-width:500px;">
+                    Tambahkan kebun pertama Anda untuk mulai mencatat
+                    hasil panen, biaya operasional, dan laporan.
+                </p>
 
-                    <a href="<?= site_url('kebun/create') ?>" class="btn btn-success btn-lg px-4">
-                        <i class="bi bi-plus-circle me-2"></i>
-                        Tambah Kebun
-                    </a>
+                <a href="<?= site_url('kebun/create') ?>"
+                   class="btn btn-success btn-lg mt-3">
 
-                </div>
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Tambah Kebun
 
-            <?php else : ?>
+                </a>
+
+            </div>
+
+        </div>
+
+
+    <?php else: ?>
+
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-body p-4">
 
                 <div class="table-responsive">
 
-                    <table id="tableKebun"
-                        class="table table-bordered table-hover table-striped align-middle">
+                    <table class="table align-middle datatable">
 
-                        <thead class="table-success">
+                        <thead>
 
                             <tr>
-                                <th width="60">No</th>
+                                <th width="70">No</th>
                                 <th>Nama Kebun</th>
                                 <th>Lokasi</th>
                                 <th>Luas</th>
-                                <th>Jenis Tanaman</th>
+                                <th>Tanaman</th>
                                 <th width="150" class="text-center">Aksi</th>
                             </tr>
 
                         </thead>
 
+
                         <tbody>
 
                             <?php $no = 1; ?>
 
-                            <?php foreach ($kebun as $item) : ?>
+                            <?php foreach ($kebun as $item): ?>
 
-                                <tr>
+                            <tr>
 
-                                    <td><?= $no++ ?></td>
+                                <td>
+                                    <?= $no++ ?>
+                                </td>
 
-                                    <td class="fw-semibold">
+                                <td>
+                                    <strong>
                                         <?= esc($item['nama_kebun']) ?>
-                                    </td>
+                                    </strong>
+                                </td>
 
-                                    <td>
-                                        <?= esc($item['lokasi']) ?>
-                                    </td>
+                                <td>
+                                    <i class="bi bi-geo-alt text-danger me-1"></i>
+                                    <?= esc($item['lokasi']) ?>
+                                </td>
 
-                                    <td>
-                                        <?= number_format((float)$item['luas'], 2, ',', '.') ?> Ha
-                                    </td>
+                                <td>
+                                    <span class="badge bg-success-subtle text-success">
+                                        <?= number_format((float)$item['luas'],2,',','.') ?>
+                                        Ha
+                                    </span>
+                                </td>
 
-                                    <td>
+                                <td>
+                                    <span class="badge bg-warning-subtle text-dark">
+                                        <i class="bi bi-tree me-1"></i>
                                         <?= esc($item['jenis_tanaman']) ?>
-                                    </td>
+                                    </span>
+                                </td>
 
-                                    <td class="text-center">
+                                <td class="text-center">
 
-                                        <a href="<?= site_url('kebun/edit/' . $item['id']) ?>"
-                                            class="btn btn-warning btn-sm"
-                                            title="Edit">
+                                    <div class="btn-group">
 
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a href="<?= site_url('kebun/edit/'.$item['id']) ?>"
+                                           class="btn btn-warning btn-sm">
+
+                                            <i class="bi bi-pencil"></i>
 
                                         </a>
 
-                                        <a href="<?= site_url('kebun/delete/' . $item['id']) ?>"
-                                            class="btn btn-danger btn-sm btn-delete"
-                                            title="Hapus">
+                                        <a href="<?= site_url('kebun/delete/'.$item['id']) ?>"
+                                           class="btn btn-danger btn-sm btn-delete">
 
                                             <i class="bi bi-trash"></i>
 
                                         </a>
 
-                                    </td>
+                                    </div>
 
-                                </tr>
+                                </td>
+
+                            </tr>
 
                             <?php endforeach; ?>
 
@@ -125,86 +151,13 @@
 
                 </div>
 
-            <?php endif; ?>
+            </div>
 
         </div>
 
-    </div>
+
+    <?php endif; ?>
 
 </div>
-
-<script>
-$(function () {
-
-    if (!$.fn.DataTable.isDataTable('#tableKebun')) {
-
-        $('#tableKebun').DataTable({
-
-            language: {
-
-                search: "Cari :",
-
-                lengthMenu: "Tampilkan _MENU_ data",
-
-                zeroRecords: "Data tidak ditemukan",
-
-                info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
-
-                infoEmpty: "Belum ada data",
-
-                infoFiltered: "(difilter dari _MAX_ data)",
-
-                paginate: {
-
-                    previous: "Sebelumnya",
-
-                    next: "Berikutnya"
-
-                }
-
-            }
-
-        });
-
-    }
-
-    $('.btn-delete').click(function (e) {
-
-        e.preventDefault();
-
-        let url = $(this).attr('href');
-
-        Swal.fire({
-
-            title: 'Hapus data?',
-
-            text: 'Data yang dihapus tidak dapat dikembalikan.',
-
-            icon: 'warning',
-
-            showCancelButton: true,
-
-            confirmButtonColor: '#198754',
-
-            cancelButtonColor: '#dc3545',
-
-            confirmButtonText: 'Ya, Hapus',
-
-            cancelButtonText: 'Batal'
-
-        }).then((result) => {
-
-            if (result.isConfirmed) {
-
-                window.location.href = url;
-
-            }
-
-        });
-
-    });
-
-});
-</script>
 
 <?= $this->endSection() ?>

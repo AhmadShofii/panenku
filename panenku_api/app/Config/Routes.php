@@ -6,72 +6,156 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-// Home
-$routes->get('/', 'Home::index');
+/*
+|--------------------------------------------------------------------------
+| Default Route
+|--------------------------------------------------------------------------
+*/
 
-// Route yang membutuhkan login
+$routes->get('/', function () {
+    if (auth()->loggedIn()) {
+        return redirect()->to('/dashboard');
+    }
+    return redirect()->to('/login');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Route yang membutuhkan Login
+|--------------------------------------------------------------------------
+*/
+
 $routes->group('', ['filter' => 'session'], static function ($routes) {
 
-    // ==========================
-    // Dashboard
-    // ==========================
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard
+    |--------------------------------------------------------------------------
+    */
+
     $routes->get('dashboard', 'Dashboard::index');
 
-    // ==========================
-    // Kebun
-    // ==========================
+    /*
+    |--------------------------------------------------------------------------
+    | Kebun
+    |--------------------------------------------------------------------------
+    */
     $routes->get('kebun', 'Kebun::index');
     $routes->get('kebun/create', 'Kebun::create');
     $routes->post('kebun/store', 'Kebun::store');
 
-    $routes->get('kebun/edit/(:num)', 'Kebun::edit/$1');
-    $routes->post('kebun/update/(:num)', 'Kebun::update/$1');
+    $routes->get(
+        'kebun/edit/(:num)',
+        'Kebun::edit/$1'
+    );
 
-    $routes->get('kebun/delete/(:num)', 'Kebun::delete/$1');
+    $routes->post(
+        'kebun/update/(:num)',
+        'Kebun::update/$1'
+    );
 
-    // ==========================
-    // Panen
-    // ==========================
+    $routes->get(
+        'kebun/delete/(:num)',
+        'Kebun::delete/$1'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Panen
+    |--------------------------------------------------------------------------
+    */
     $routes->get('panen', 'Panen::index');
     $routes->get('panen/create', 'Panen::create');
     $routes->post('panen/store', 'Panen::store');
 
-    $routes->get('panen/edit/(:num)', 'Panen::edit/$1');
-    $routes->post('panen/update/(:num)', 'Panen::update/$1');
+    $routes->get(
+        'panen/edit/(:num)',
+        'Panen::edit/$1'
+    );
 
-    $routes->get('panen/delete/(:num)', 'Panen::delete/$1');
+    $routes->post(
+        'panen/update/(:num)',
+        'Panen::update/$1'
+    );
 
-    // ==========================
-    // Biaya
-    // ==========================
+    $routes->get(
+        'panen/delete/(:num)',
+        'Panen::delete/$1'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Biaya
+    |--------------------------------------------------------------------------
+    */
     $routes->get('biaya', 'Biaya::index');
+
     $routes->get('biaya/create', 'Biaya::create');
     $routes->post('biaya/store', 'Biaya::store');
 
-    $routes->get('biaya/edit/(:num)', 'Biaya::edit/$1');
-    $routes->post('biaya/update/(:num)', 'Biaya::update/$1');
+    $routes->get(
+        'biaya/edit/(:num)',
+        'Biaya::edit/$1'
+    );
 
-    $routes->get('biaya/delete/(:num)', 'Biaya::delete/$1');
+    $routes->post(
+        'biaya/update/(:num)',
+        'Biaya::update/$1'
+    );
 
-    // ==========================
-    // Laporan
-    // ==========================
+    $routes->get(
+        'biaya/delete/(:num)',
+        'Biaya::delete/$1'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Laporan
+    |--------------------------------------------------------------------------
+    */
     $routes->get('laporan', 'Laporan::index');
+
     $routes->get('laporan/pdf', 'Laporan::pdf');
     $routes->get('laporan/excel', 'Laporan::excel');
 
-    // (Opsional nanti jika membuat Export Excel)
-    // $routes->get('laporan/excel', 'Laporan::excel');
+    /*
+    |--------------------------------------------------------------------------
+    | Profile
+    |--------------------------------------------------------------------------
+    */
 
-    // ==========================
-// Profile
-// ==========================
-$routes->get('profile', 'Profile::index');
-$routes->get('profile/edit', 'Profile::edit');
-$routes->post('profile/update', 'Profile::update');
-$routes->get('profile/password', 'Profile::password');
-$routes->post('profile/password/update', 'Profile::updatePassword');
+    $routes->get(
+        'profile',
+        'Profile::index'
+    );
+
+    $routes->get(
+        'profile/edit',
+        'Profile::edit'
+    );
+
+    $routes->post(
+        'profile/update',
+        'Profile::update'
+    );
+
+    $routes->get(
+        'profile/password',
+        'Profile::password'
+    );
+
+    $routes->post(
+        'profile/password/update',
+        'Profile::updatePassword'
+    );
+
 });
 
-// Shield Authentication
+/*
+|--------------------------------------------------------------------------
+| Shield Authentication Routes
+|--------------------------------------------------------------------------
+*/
+
 service('auth')->routes($routes);

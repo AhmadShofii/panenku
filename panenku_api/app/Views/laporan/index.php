@@ -4,447 +4,351 @@
 
 <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-        <h3 class="mb-0">
-            <i class="bi bi-file-earmark-text"></i>
-            <?= esc($title) ?>
-        </h3>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
 
         <div>
+            <h2 class="fw-bold mb-1">
+                Laporan Kebun
+            </h2>
 
-            <a href="<?= site_url('laporan/pdf?' . http_build_query(service('request')->getGet())) ?>"
-                class="btn btn-danger">
-
-                <i class="bi bi-file-earmark-pdf"></i>
-
-                Export PDF
-
-            </a>
+            <p class="text-muted mb-0">
+                Ringkasan pendapatan, biaya, dan laba kebun.
+            </p>
         </div>
+
+
+        <a href="<?= site_url('laporan/pdf') ?>"
+           class="btn btn-danger px-4">
+
+            <i class="bi bi-file-earmark-pdf me-2"></i>
+            Export PDF
+
+        </a>
 
     </div>
 
-    <!-- Filter -->
 
-    <div class="card shadow-sm mb-4">
 
-        <div class="card-header bg-primary text-white">
+    <div class="card border-0 shadow-sm mb-4">
 
-            <i class="bi bi-funnel-fill"></i>
+        <div class="card-body p-4">
 
-            Filter Laporan
 
-        </div>
+            <form action="<?= site_url('laporan') ?>"
+                  method="get">
 
-        <div class="card-body">
 
-            <form action="<?= site_url('laporan') ?>" method="get">
+                <div class="row g-3 align-items-end">
 
-                <div class="row g-3">
 
-                    <div class="col-md-3">
+                    <div class="col-md-5">
 
-                        <label class="form-label">
-
-                            Tanggal Mulai
-
+                        <label class="form-label fw-semibold">
+                            Dari Tanggal
                         </label>
 
-                        <input
-                            type="date"
-                            class="form-control"
-                            name="mulai"
-                            value="<?= esc(service('request')->getGet('mulai')) ?>">
+
+                        <input type="date"
+                               name="mulai"
+                               value="<?= esc($mulai ?? '') ?>"
+                               class="form-control">
 
                     </div>
 
-                    <div class="col-md-3">
 
-                        <label class="form-label">
 
-                            Tanggal Selesai
+                    <div class="col-md-5">
 
+                        <label class="form-label fw-semibold">
+                            Sampai Tanggal
                         </label>
 
-                        <input
-                            type="date"
-                            class="form-control"
-                            name="selesai"
-                            value="<?= esc(service('request')->getGet('selesai')) ?>">
+
+                        <input type="date"
+                               name="selesai"
+                               value="<?= esc($selesai ?? '') ?>"
+                               class="form-control">
 
                     </div>
 
-                    <div class="col-md-3">
 
-                        <label class="form-label">
 
-                            Kebun
+                    <div class="col-md-2">
 
-                        </label>
+                        <button class="btn btn-success w-100">
 
-                        <select
-                            name="kebun_id"
-                            class="form-select">
-
-                            <option value="">
-
-                                Semua Kebun
-
-                            </option>
-
-                            <?php foreach ($kebun as $item) : ?>
-
-                                <option
-                                    value="<?= $item['id'] ?>"
-                                    <?= service('request')->getGet('kebun_id') == $item['id'] ? 'selected' : '' ?>>
-
-                                    <?= esc($item['nama_kebun']) ?>
-
-                                </option>
-
-                            <?php endforeach ?>
-
-                        </select>
-
-                    </div>
-
-                    <div class="col-md-3 d-flex align-items-end">
-
-                        <button
-                            class="btn btn-primary me-2">
-
-                            <i class="bi bi-search"></i>
-
-                            Filter
+                            <i class="bi bi-search me-2"></i>
+                            Tampilkan
 
                         </button>
 
-                        <a
-                            href="<?= site_url('laporan') ?>"
-                            class="btn btn-secondary">
+                    </div>
 
-                            Reset
 
-                        </a>
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="bg-success bg-opacity-10 rounded-circle p-3">
+
+                            <i class="bi bi-cash-stack text-success fs-3"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Total Pendapatan
+                            </p>
+
+
+                            <h4 class="fw-bold mb-0">
+
+                                Rp <?= number_format(
+                                    $totalPendapatan,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?>
+
+                            </h4>
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </form>
+            </div>
 
         </div>
 
-    </div>
 
-    <!-- Ringkasan -->
 
-    <div class="row mb-4">
 
-        <div class="col-lg-4">
+        <div class="col-md-4">
 
-            <div class="card border-success shadow-sm">
+            <div class="card border-0 shadow-sm h-100">
 
                 <div class="card-body">
 
-                    <h6 class="text-muted">
+                    <div class="d-flex align-items-center gap-3">
 
-                        Total Pendapatan
+                        <div class="bg-danger bg-opacity-10 rounded-circle p-3">
 
-                    </h6>
+                            <i class="bi bi-wallet2 text-danger fs-3"></i>
 
-                    <h3 class="text-success">
+                        </div>
 
-                        Rp <?= number_format($totalPendapatan, 0, ',', '.') ?>
 
-                    </h3>
+                        <div>
 
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4">
-
-            <div class="card border-danger shadow-sm">
-
-                <div class="card-body">
-
-                    <h6 class="text-muted">
-
-                        Total Biaya
-
-                    </h6>
-
-                    <h3 class="text-danger">
-
-                        Rp <?= number_format($totalBiaya, 0, ',', '.') ?>
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-4">
-
-            <div class="card border-primary shadow-sm">
-
-                <div class="card-body">
-
-                    <h6 class="text-muted">
-
-                        Laba Bersih
-
-                    </h6>
-
-                    <h3 class="<?= $labaBersih >= 0 ? 'text-primary' : 'text-danger' ?>">
-
-                        Rp <?= number_format($labaBersih, 0, ',', '.') ?>
-
-                    </h3>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Tabel Panen -->
-
-    <div class="card shadow-sm mb-4">
-
-        <div class="card-header bg-success text-white">
-
-            <i class="bi bi-basket"></i>
-
-            Data Panen
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="table-responsive">
-
-                <table
-                    id="tablePanen"
-                    class="table table-bordered table-hover align-middle">
-
-                    <thead class="table-success">
-
-                        <tr>
-
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Kebun</th>
-                            <th>Hasil (Kg)</th>
-                            <th>Total Harga</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <?php if (!empty($panen)) : ?>
-
-                            <?php $no = 1; ?>
-                            <?php foreach ($panen as $item) : ?>
-
-                                <tr>
-
-                                    <td><?= $no++ ?></td>
-
-                                    <td>
-                                        <?= date('d-m-Y', strtotime($item['tanggal_panen'])) ?>
-                                    </td>
-
-                                    <td>
-                                        <?= esc($item['nama_kebun']) ?>
-                                    </td>
-
-                                    <td class="text-end">
-                                        <?= number_format($item['hasil_kg'], 2, ',', '.') ?>
-                                    </td>
-
-                                    <td class="text-end">
-                                        Rp <?= number_format($item['total_harga'], 0, ',', '.') ?>
-                                    </td>
-
-                                </tr>
-
-                            <?php endforeach; ?>
-
-                        <?php else : ?>
-
-                            <tr>
-
-                                <td colspan="5" class="text-center">
-
-                                    Tidak ada data panen.
-
-                                </td>
-
-                            </tr>
-
-                        <?php endif; ?>
-
-                    </tbody>
-
-                    <tfoot>
-
-                        <tr>
-
-                            <th colspan="4" class="text-end">
-
-                                Total Pendapatan
-
-                            </th>
-
-                            <th class="text-end text-success">
-
-                                Rp <?= number_format($totalPendapatan, 0, ',', '.') ?>
-
-                            </th>
-
-                        </tr>
-
-                    </tfoot>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- DATA BIAYA -->
-    <!-- ========================= -->
-
-    <div class="card shadow-sm">
-
-        <div class="card-header bg-danger text-white">
-
-            <i class="bi bi-cash-stack"></i>
-
-            Data Biaya
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="table-responsive">
-
-                <table
-                    id="tableBiaya"
-                    class="table table-bordered table-hover align-middle">
-
-                    <thead class="table-danger">
-
-                        <tr>
-
-                            <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Kebun</th>
-                            <th>Kategori</th>
-                            <th>Nominal</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <?php if (!empty($biaya)) : ?>
-
-                            <?php $no = 1; ?>
-
-                            <?php foreach ($biaya as $item) : ?>
-
-                                <tr>
-
-                                    <td><?= $no++ ?></td>
-
-                                    <td>
-
-                                        <?= date('d-m-Y', strtotime($item['tanggal'])) ?>
-
-                                    </td>
-
-                                    <td>
-
-                                        <?= esc($item['nama_kebun']) ?>
-
-                                    </td>
-
-                                    <td>
-
-                                        <?= esc($item['nama_kategori']) ?>
-
-                                    </td>
-
-                                    <td class="text-end">
-
-                                        Rp <?= number_format($item['nominal'], 0, ',', '.') ?>
-
-                                    </td>
-
-                                </tr>
-
-                            <?php endforeach; ?>
-
-                        <?php else : ?>
-
-                            <tr>
-
-                                <td colspan="5" class="text-center">
-
-                                    Tidak ada data biaya.
-
-                                </td>
-
-                            </tr>
-
-                        <?php endif; ?>
-
-                    </tbody>
-
-                    <tfoot>
-
-                        <tr>
-
-                            <th colspan="4" class="text-end">
-
+                            <p class="text-muted mb-1">
                                 Total Biaya
+                            </p>
 
-                            </th>
 
-                            <th class="text-end text-danger">
+                            <h4 class="fw-bold mb-0">
 
-                                Rp <?= number_format($totalBiaya, 0, ',', '.') ?>
+                                Rp <?= number_format(
+                                    $totalBiaya,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?>
 
-                            </th>
+                            </h4>
 
-                        </tr>
+                        </div>
 
-                    </tfoot>
+                    </div>
 
-                </table>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3">
+
+                            <i class="bi bi-graph-up-arrow text-primary fs-3"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Laba Bersih
+                            </p>
+
+
+                            <h4 class="fw-bold mb-0">
+
+                                Rp <?= number_format(
+                                    $labaBersih,
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?>
+
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
     </div>
 
+
+
+
+    <div class="card border-0 shadow-sm">
+
+
+        <div class="card-body p-4">
+
+
+            <h5 class="fw-bold mb-3">
+
+                <i class="bi bi-bar-chart-fill text-success me-2"></i>
+
+                Data Panen
+
+            </h5>
+
+
+            <div class="table-responsive">
+
+
+                <table class="table align-middle datatable">
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Kebun</th>
+                            <th>Kg</th>
+                            <th>Total</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <?php $no=1; ?>
+
+                    <?php foreach($panen as $item): ?>
+
+
+                        <tr>
+
+                            <td>
+                                <?= $no++ ?>
+                            </td>
+
+
+                            <td>
+                                <?= date(
+                                    'd-m-Y',
+                                    strtotime($item['tanggal_panen'])
+                                ) ?>
+                            </td>
+
+
+                            <td>
+                                <?= esc($item['nama_kebun']) ?>
+                            </td>
+
+
+                            <td>
+                                <?= number_format(
+                                    $item['hasil_kg'],
+                                    2,
+                                    ',',
+                                    '.'
+                                ) ?> Kg
+                            </td>
+
+
+                            <td class="fw-bold text-success">
+
+                                Rp <?= number_format(
+                                    $item['total_harga'],
+                                    0,
+                                    ',',
+                                    '.'
+                                ) ?>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    <?php endforeach; ?>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
 
 <?= $this->endSection() ?>
