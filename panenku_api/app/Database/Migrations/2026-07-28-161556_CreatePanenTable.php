@@ -16,8 +16,8 @@ class CreatePanenTable extends Migration
                 'auto_increment' => true,
             ],
             'kebun_id' => [
-                'type'       => 'BIGINT',
-                'constraint' => 20,
+                'type'       => 'INT',
+                'constraint' => 11,
                 'unsigned'   => true,
             ],
             'tanggal_panen' => [

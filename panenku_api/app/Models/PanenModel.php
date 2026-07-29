@@ -6,14 +6,13 @@ use CodeIgniter\Model;
 
 class PanenModel extends Model
 {
-    protected $table            = 'panen';
-    protected $primaryKey       = 'id';
+    protected $table = 'panen';
 
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $primaryKey = 'id';
 
-    protected $protectFields = true;
+    protected $returnType = 'array';
+
+    protected $useTimestamps = true;
 
     protected $allowedFields = [
         'kebun_id',
@@ -21,19 +20,6 @@ class PanenModel extends Model
         'hasil_kg',
         'harga_per_kg',
         'total_harga',
-        'catatan',
+        'catatan'
     ];
-
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
-
-    protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
 }

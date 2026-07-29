@@ -22,9 +22,18 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
 
     $routes->get('kebun/edit/(:num)', 'Kebun::edit/$1');
     $routes->post('kebun/update/(:num)', 'Kebun::update/$1');
-    
+
     $routes->get('kebun/delete/(:num)', 'Kebun::delete/$1');
 
+    // Panen
+    $routes->get('panen', 'Panen::index');
+    $routes->get('panen/create', 'Panen::create');
+    $routes->post('panen/store', 'Panen::store');
+
+    $routes->get('panen/edit/(:num)', 'Panen::edit/$1');
+    $routes->post('panen/update/(:num)', 'Panen::update/$1');
+    
+    $routes->get('panen/delete/(:num)', 'Panen::delete/$1');
 });
 
 service('auth')->routes($routes);

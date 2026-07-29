@@ -15,14 +15,10 @@ class Dashboard extends BaseController
 
     public function index()
     {
-        $user = auth()->user();
-
-        $stats = $this->dashboardService->getStatistics($user->id);
-
         return view('dashboard/index', [
             'title' => 'Dashboard',
-            'user' => $user,
-            'stats' => $stats,
+            'user'  => auth()->user(),
+            'stats' => $this->dashboardService->getStatistics(auth()->id()),
         ]);
     }
 }
