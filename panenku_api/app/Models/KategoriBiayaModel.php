@@ -16,7 +16,6 @@ class KategoriBiayaModel extends Model
     protected $protectFields = true;
 
     protected $allowedFields = [
-        'user_id',
         'nama_kategori',
     ];
 
@@ -28,8 +27,16 @@ class KategoriBiayaModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules = [
+        'nama_kategori' => 'required|max_length[100]',
+    ];
+
+    protected $validationMessages = [
+        'nama_kategori' => [
+            'required' => 'Nama kategori wajib diisi.',
+        ],
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 }
