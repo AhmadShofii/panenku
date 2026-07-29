@@ -19,7 +19,12 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
     $routes->get('kebun', 'Kebun::index');
     $routes->get('kebun/create', 'Kebun::create');
     $routes->post('kebun/store', 'Kebun::store');
+
+    $routes->get('kebun/edit/(:num)', 'Kebun::edit/$1');
+    $routes->post('kebun/update/(:num)', 'Kebun::update/$1');
+    
+    $routes->get('kebun/delete/(:num)', 'Kebun::delete/$1');
+
 });
 
-// Shield Authentication Routes
 service('auth')->routes($routes);
