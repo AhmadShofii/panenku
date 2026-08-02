@@ -60,6 +60,9 @@ class Auth extends ShieldAuth
     'magic-link-email' => '\CodeIgniter\Shield\Views\Email\magic_link_email',
 ];
 
+    public array $tokens = [
+    'unusedTokenLifetime' => 31536000,
+];
     /**
      * --------------------------------------------------------------------
      * Redirect URLs
