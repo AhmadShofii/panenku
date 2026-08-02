@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+
 /*
 |--------------------------------------------------------------------------
 | Default Route
@@ -13,37 +14,75 @@ use CodeIgniter\Router\RouteCollection;
 */
 
 $routes->get('/', function () {
-    if (auth()->loggedIn()) {
+
+    if(auth()->loggedIn()){
         return redirect()->to('/dashboard');
     }
     return redirect()->to('/login');
 
 });
 
+
+
 /*
 |--------------------------------------------------------------------------
-| Route yang membutuhkan Login
+| Forgot Password Custom
 |--------------------------------------------------------------------------
 */
 
-$routes->group('', ['filter' => 'session'], static function ($routes) {
+$routes->get(
+    'forgot-password',
+    'Auth\ForgotPassword::index'
+);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Dashboard
-    |--------------------------------------------------------------------------
-    */
+$routes->post(
+    'forgot-password/send',
+    'Auth\ForgotPassword::send'
+);
 
-    $routes->get('dashboard', 'Dashboard::index');
+
+
+/*
+|--------------------------------------------------------------------------
+| Mobile API
+|--------------------------------------------------------------------------
+*/
+
+$routes->group('', ['filter'=>'session'], static function($routes){
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Login Routes
+|--------------------------------------------------------------------------
+*/
+
+$routes->group('', ['filter'=>'session'], static function($routes){
+
+    $routes->get(
+        'dashboard',
+        'Dashboard::index'
+    );
+
+
 
     /*
     |--------------------------------------------------------------------------
     | Kebun
     |--------------------------------------------------------------------------
     */
-    $routes->get('kebun', 'Kebun::index');
-    $routes->get('kebun/create', 'Kebun::create');
-    $routes->post('kebun/store', 'Kebun::store');
+
+    $routes->get('kebun','Kebun::index');
+
+    $routes->get(
+        'kebun/create',
+        'Kebun::create'
+    );
+
+    $routes->post(
+        'kebun/store',
+        'Kebun::store'
+    );
 
     $routes->get(
         'kebun/edit/(:num)',
@@ -60,14 +99,28 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
         'Kebun::delete/$1'
     );
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Panen
     |--------------------------------------------------------------------------
     */
-    $routes->get('panen', 'Panen::index');
-    $routes->get('panen/create', 'Panen::create');
-    $routes->post('panen/store', 'Panen::store');
+
+    $routes->get(
+        'panen',
+        'Panen::index'
+    );
+
+    $routes->get(
+        'panen/create',
+        'Panen::create'
+    );
+
+    $routes->post(
+        'panen/store',
+        'Panen::store'
+    );
 
     $routes->get(
         'panen/edit/(:num)',
@@ -84,15 +137,28 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
         'Panen::delete/$1'
     );
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Biaya
     |--------------------------------------------------------------------------
     */
-    $routes->get('biaya', 'Biaya::index');
 
-    $routes->get('biaya/create', 'Biaya::create');
-    $routes->post('biaya/store', 'Biaya::store');
+    $routes->get(
+        'biaya',
+        'Biaya::index'
+    );
+
+    $routes->get(
+        'biaya/create',
+        'Biaya::create'
+    );
+
+    $routes->post(
+        'biaya/store',
+        'Biaya::store'
+    );
 
     $routes->get(
         'biaya/edit/(:num)',
@@ -109,15 +175,30 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
         'Biaya::delete/$1'
     );
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Laporan
     |--------------------------------------------------------------------------
     */
-    $routes->get('laporan', 'Laporan::index');
 
-    $routes->get('laporan/pdf', 'Laporan::pdf');
-    $routes->get('laporan/excel', 'Laporan::excel');
+    $routes->get(
+        'laporan',
+        'Laporan::index'
+    );
+
+    $routes->get(
+        'laporan/pdf',
+        'Laporan::pdf'
+    );
+
+    $routes->get(
+        'laporan/excel',
+        'Laporan::excel'
+    );
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -150,7 +231,10 @@ $routes->group('', ['filter' => 'session'], static function ($routes) {
         'Profile::updatePassword'
     );
 
+
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
